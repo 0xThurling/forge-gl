@@ -7,6 +7,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
+#include <iostream>
 
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
@@ -16,8 +17,9 @@ int window_width = 1280;
 int window_height = 720;
 
 bool initialize_window() {
-  if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-    fprintf(stderr, "Error initializing SDL.\n");
+  std::cout << "Starting SDL initialization..." << std::endl;
+  if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+    std::cout << "Error initializing SDL: " << SDL_GetError() << std::endl;
     return false;
   }
 
@@ -40,7 +42,7 @@ bool initialize_window() {
   );
 
   if (!window) {
-    fprintf(stderr, "Error creating SDL window.\n");
+    std::cout << "Error creating SDL window: " << SDL_GetError() << std::endl;
     return false;
   }
 
@@ -48,7 +50,7 @@ bool initialize_window() {
   renderer = SDL_CreateRenderer(window, -1, 0);
 
   if (!renderer) {
-    fprintf(stderr, "Error creating SDL renderer.\n");
+    std::cout << "Error creating SDL renderer: " << SDL_GetError() << std::endl;
     return false;
   }
 
