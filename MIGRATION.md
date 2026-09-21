@@ -4,6 +4,11 @@ This is the migration of the `forge-gl` software renderer to the new ForgeFP
 library (`fp/`), in a deliberately *functional* style that leans on the library
 end to end.
 
+> **Performance plan:** [`PERFORMANCE.md`](PERFORMANCE.md) records the decision
+> to keep this a CPU software renderer (with the measured numbers behind it)
+> and the CPU-side plan — tile-parallel rasterization, culling, SIMD, and a
+> z-buffer experiment. It builds on this migration, so land this first.
+
 Verification performed while producing this document:
 
 - every file compiles with GCC 16 against the ForgeFP headers
@@ -1458,6 +1463,11 @@ int main() {
 ```
 
 ## Remaining candidates (deliberately not done)
+
+The CPU performance work — tile-parallel rasterization, culling, SIMD in the
+transform pass, and the z-buffer experiment — is planned in
+[PERFORMANCE.md](PERFORMANCE.md), not here; this section is only about the
+migration's own leftovers.
 
 - **`matrix.cpp` (mat4)**: 4x4 `float` matrix math could use `fp::linalg` if it
   accepted any nested random-access range (`std::array<std::array<float,4>,4>`),
