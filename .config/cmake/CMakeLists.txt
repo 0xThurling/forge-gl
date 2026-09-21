@@ -11,15 +11,21 @@ include(FetchContent)
 # --- Dependencies ---
 FetchContent_Declare(sdl GIT_REPOSITORY "https://github.com/libsdl-org/SDL.git" GIT_TAG "release-2.32.10")
 FetchContent_MakeAvailable(sdl)
+FetchContent_Declare(forge_utils GIT_REPOSITORY "https://github.com/0xThurling/forge-fp" GIT_TAG "main")
+FetchContent_MakeAvailable(forge_utils)
 
 
 # --- Project Target ---
 file(GLOB_RECURSE SOURCES RELATIVE ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src/*.cpp)
-add_executable(renderer ${SOURCES})
+if(SOURCES)
+  add_executable(renderer ${SOURCES})
+else()
+  message(WARNING "No source files found in src/. Executable target 'renderer' was not created.")
+endif()
 
 
 
 # --- Linking ---
-target_link_libraries(renderer PRIVATE SDL2::SDL2)
+target_link_libraries(renderer PRIVATE SDL2::SDL2 forgefp)
       
 

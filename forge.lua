@@ -15,6 +15,11 @@ return {
         tag = "release-2.32.10",
         target = "SDL2::SDL2",
       },
+      forge_utils = {
+        git = "https://github.com/0xThurling/forge-fp",
+        tag = "main",
+        target = "forgefp"
+      }
     },
   },
   scripts = {
